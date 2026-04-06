@@ -3,202 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABO6L7A AI - Gemini Edition</title>
+    <title>ABO6L7A AI - Ultimate Optimized</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root {
-            --bg-main: #131314;
-            --bg-sidebar: #1e1f20;
-            --text-primary: #e3e3e3;
-            --accent-blue: #4285f4;
-            --input-bg: #1e1f20;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: 'Google Sans', Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        /* الهيدر العلوي */
-        header {
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        .model-name { color: #8e918f; font-size: 0.9rem; }
-
-        /* منطقة المحادثة */
-        #chat-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 10% 100px 10%; /* مساحة جانبية لتبدو مثل الواجهة الرسمية */
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .chat-row { display: flex; gap: 15px; width: 100%; }
-        
-        /* أيقونات المستخدم والذكاء */
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            background-size: cover;
-        }
-        .user-avatar { background-color: #5c5c5c; }
-        .ai-avatar { background-image: url('https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304655148dbec715.svg'); }
-
-        .content {
-            line-height: 1.6;
-            font-size: 1.05rem;
-            max-width: 100%;
-        }
-
-        /* الأكواد البرمجية */
-        pre {
-            background: #000;
-            padding: 15px;
-            border-radius: 12px;
-            overflow-x: auto;
-            direction: ltr;
-            border: 1px solid #333;
-        }
-
-        /* صندوق الإدخال السفلي */
-        .input-wrapper {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            padding: 0 10%;
-        }
-
-        .input-box {
-            background: var(--input-bg);
-            width: 100%;
-            max-width: 800px;
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 12px;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        button {
-            background: none;
-            border: none;
-            color: var(--accent-blue);
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-            padding: 10px;
-        }
-
-        /* انيميشن التحميل */
-        .dots { display: inline-block; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        :root { --bg: #131314; --txt: #e3e3e3; --accent: #4285f4; --input: #1e1f20; }
+        body { background: var(--bg); color: var(--txt); font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        header { padding: 15px 25px; display: flex; justify-content: space-between; font-size: 1.1rem; }
+        .model { color: #8e918f; font-size: 0.9rem; }
+        #chat-window { flex: 1; overflow-y: auto; padding: 20px 10% 120px 10%; display: flex; flex-direction: column; gap: 25px; }
+        .row { display: flex; gap: 15px; }
+        .avatar { width: 35px; height: 35px; border-radius: 50%; flex-shrink: 0; }
+        .ai-avatar { background: url('https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304655148dbec715.svg') center/cover; }
+        .user-avatar { background: #5c5c5c; }
+        .content { line-height: 1.6; max-width: 100%; word-wrap: break-word; }
+        pre { background: #000; padding: 10px; border-radius: 10px; overflow-x: auto; border: 1px solid #333; direction: ltr; }
+        .input-hub { position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; padding: 0 10%; }
+        .box { background: var(--input); width: 100%; max-width: 800px; border-radius: 30px; display: flex; align-items: center; padding: 5px 15px; }
+        input { flex: 1; background: transparent; border: none; color: #fff; padding: 15px; font-size: 1rem; outline: none; }
+        button { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 1.5rem; padding: 10px; }
+        .loading { color: var(--accent); animation: pulse 1s infinite; font-style: italic; }
+        @keyframes pulse { 50% { opacity: 0.4; } }
     </style>
 </head>
 <body>
-
-<header>
-    <div>ABO6L7A AI</div>
-    <div class="model-name">Gemini 1.5 Pro Integrated</div>
-</header>
-
-<div id="chat-container">
-    <div class="chat-row">
-        <div class="avatar ai-avatar"></div>
-        <div class="content">مرحباً بك. أنا ABO6L7A AI، كيف يمكنني مساعدتك اليوم؟</div>
+    <header><div>ABO6L7A AI</div><div class="model">Gemini 1.5 Flash - Optimized</div></header>
+    <div id="chat-window">
+        <div class="row"><div class="avatar ai-avatar"></div><div class="content">مرحباً بك. أنا ABO6L7A AI، نظام الذكاء المطور. كيف يمكنني مساعدتك؟</div></div>
     </div>
-</div>
-
-<div class="input-wrapper">
-    <div class="input-box">
-        <input type="text" id="userInput" placeholder="اكتب سؤالاً أو اطلب شيئاً هنا..." onkeypress="if(event.key==='Enter') send()">
-        <button onclick="send()">✦</button>
-    </div>
-</div>
-
-<script>
-    const API_KEY = "AIzaSyAb6CKU42C7GKGflm7jR0SkjJ0VRv9O304";
-
-    async function send() {
-        const input = document.getElementById('userInput');
-        const text = input.value.trim();
-        if(!text) return;
-
-        addMsg(text, 'user');
-        input.value = "";
-
-        // رسالة انتظار
-        const loadingId = "load-" + Date.now();
-        addMsg('<span class="dots">...</span> جاري التفكير', 'ai', loadingId);
-
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: "You are ABO6L7A AI, behave exactly like Google Gemini. Be helpful, professional, and provide detailed answers in Arabic. Query: " + text }] }]
-                })
-            });
-
-            const data = await response.json();
-            const reply = data.candidates[0].content.parts[0].text;
-            
-            // تحديث رسالة الانتظار بالرد الحقيقي
-            document.getElementById(loadingId).innerHTML = marked.parse(reply);
-        } catch(e) {
-            document.getElementById(loadingId).innerText = "حدث خطأ في الاتصال بالسيرفر.";
+    <div class="input-hub"><div class="box">
+        <input type="text" id="userInput" placeholder="اسألني أي شيء..." onkeypress="if(event.key==='Enter') executeAI()">
+        <button onclick="executeAI()">✦</button>
+    </div></div>
+    <script>
+        const KEY = "AIzaSyAb6CKU42C7GKGflm7jR0SkjJ0VRv9O304";
+        async function executeAI() {
+            const input = document.getElementById('userInput');
+            const chat = document.getElementById('chat-window');
+            const text = input.value.trim();
+            if(!text) return;
+            addMsg(text, 'user');
+            input.value = "";
+            const loadId = "load-" + Date.now();
+            addMsg('<span class="loading">... جاري التفكير بعمق ...</span>', 'ai', loadId);
+            try {
+                // استخدام Gemini 1.5 Flash للسرعة والاستجابة الفورية
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${KEY}`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ 
+                        parts: [{ 
+                            // تعليمات النظام لجعل الرد ذكياً وسريعاً
+                            text: "You are ABO6L7A AI, behave exactly like a highly advanced, fast, helpful human-like assistant. Provide detailed yet concise answers in Arabic. The user said: " + text 
+                        }] 
+                    }] })
+                });
+                const data = await response.json();
+                if(data.error) { throw new Error(data.error.message); }
+                const reply = data.candidates[0].content.parts[0].text;
+                document.getElementById(loadId).innerHTML = marked.parse(reply);
+            } catch(e) {
+                // محاولة إعادة المحاولة تلقائياً بعد ثانيتين إذا فشل الاتصال
+                document.getElementById(loadId).innerHTML = "<span class='loading'>حدث عائق مؤقت.. أعيد المحاولة تلقائياً...</span>";
+                setTimeout(() => executeAI_Retry(text, loadId), 2000);
+            }
         }
-    }
-
-    function addMsg(text, type, id = null) {
-        const container = document.getElementById('chat-container');
-        const row = document.createElement('div');
-        row.className = 'chat-row';
-        
-        const avatar = document.createElement('div');
-        avatar.className = `avatar ${type}-avatar`;
-        
-        const content = document.createElement('div');
-        content.className = 'content';
-        if(id) content.id = id;
-        
-        if(type === 'user') content.innerText = text;
-        else if(!id) content.innerHTML = marked.parse(text); // للرسالة الترحيبية فقط
-        else content.innerHTML = text; // لرسالة التحميل
-
-        row.appendChild(avatar);
-        row.appendChild(content);
-        container.appendChild(row);
-        container.scrollTop = container.scrollHeight;
-    }
-</script>
-
+        async function executeAI_Retry(text, loadId) {
+            try {
+                const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${KEY}`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
+                });
+                const d = await r.json();
+                if(d.error) throw new Error(d.error.message);
+                document.getElementById(loadId).innerHTML = marked.parse(d.candidates[0].content.parts[0].text);
+            } catch(e) {
+                document.getElementById(loadId).innerText = "لم أستطع الاتصال بالسيرفر حالياً. جرب رسالة أقصر أو انتظر دقيقة.";
+            }
+        }
+        function addMsg(t, type, id) {
+            const c = document.getElementById('chat-window');
+            const r = document.createElement('div'); r.className = 'row';
+            const a = document.createElement('div'); a.className = `avatar ${type}-avatar`;
+            const con = document.createElement('div'); con.className = 'content'; if(id) con.id = id;
+            if(type === 'user') con.innerText = t; else con.innerHTML = t;
+            r.appendChild(a); r.appendChild(con); c.appendChild(r);
+            c.scrollTop = c.scrollHeight;
+        }
+    </script>
 </body>
 </html>
