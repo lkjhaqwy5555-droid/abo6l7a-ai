@@ -3,94 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABO6L7A AI v11.0 | FINAL CONFIRMATION</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>ABO6L7A AI | الإصدار النهائي</title>
     <style>
-        :root { --neon: #00ffcc; --bg: #010101; --glass: rgba(255, 255, 255, 0.05); }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        
-        /* تصميم الهيدر الاحترافي */
-        header { padding: 20px; background: #000; border-bottom: 2px solid var(--neon); text-align: center; color: var(--neon); font-weight: 900; letter-spacing: 2px; box-shadow: 0 0 25px rgba(0,255,204,0.3); z-index: 10; }
-
-        /* منطقة الدردشة */
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); scrollbar-width: thin; scrollbar-color: var(--neon) #000; }
-        
-        .msg { padding: 18px 25px; border-radius: 25px; max-width: 85%; font-size: 1.05rem; line-height: 1.7; position: relative; backdrop-filter: blur(10px); animation: fadeIn 0.4s ease; }
-        .user { align-self: flex-start; background: var(--glass); border: 1px solid var(--neon); color: var(--neon); box-shadow: -5px 5px 15px rgba(0,255,204,0.1); }
-        .ai { align-self: flex-end; background: linear-gradient(135deg, var(--neon), #00aaff); color: #000; font-weight: bold; box-shadow: 5px 5px 20px rgba(0,255,204,0.3); border-left: 5px solid #fff; }
-
-        /* منطقة الإدخال */
-        .input-area { padding: 25px; background: #000; display: flex; gap: 15px; border-top: 1px solid #222; z-index: 10; }
-        input { flex: 1; background: #0a0a0a; border: 1px solid #333; color: #fff; padding: 18px; border-radius: 50px; outline: none; transition: 0.3s; font-size: 1.1rem; }
-        input:focus { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
-        button { background: var(--neon); color: #000; border: none; padding: 0 35px; border-radius: 50px; font-weight: 900; cursor: pointer; transition: 0.3s; }
-        button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--neon); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        body { background: #000; color: #00ffcc; font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; margin: 0; }
+        #chat { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 12px; border-radius: 15px; max-width: 80%; line-height: 1.5; }
+        .user { align-self: flex-start; background: #222; border-right: 3px solid #00ffcc; }
+        .ai { align-self: flex-end; background: #00ffcc; color: #000; font-weight: bold; }
+        .input-box { padding: 20px; background: #111; display: flex; gap: 10px; }
+        input { flex: 1; background: #000; border: 1px solid #00ffcc; color: #fff; padding: 10px; border-radius: 20px; outline: none; }
+        button { background: #00ffcc; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <header>ABO6L7A SUPREME AI | الإصدار النهائي المؤكد</header>
-    
-    <div id="chat-window">
-        <div class="msg ai">تم تفعيل بروتوكول الذكاء الشامل. أنا الآن متصل بعقل Gemini السحابي. يمكنني حل الرياضيات، البرمجة، الترجمة، وتطوير المواقع فوراً. ماذا تأمر؟</div>
+    <div id="chat"><div class="msg ai">نظام أبو طلحة جاهز. أرسل رسالة لتفعيل الذكاء.</div></div>
+    <div class="input-box">
+        <input type="text" id="in" placeholder="اسألني أي شيء..." onkeypress="if(event.key==='Enter') start()">
+        <button onclick="start()">إرسال</button>
     </div>
-
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="اسأل عن أي شيء، اطلب كود، أو مسألة رياضية..." onkeypress="if(event.key==='Enter') startProcess()">
-        <button onclick="startProcess()">إرسال</button>
-    </div>
-
     <script>
-        // استرجاع المفتاح من الذاكرة المحلية إذا كان موجوداً
-        let apiKey = localStorage.getItem('gemini_key') || "";
-
-        async function startProcess() {
-            const input = document.getElementById('userInput');
+        async function start() {
+            const input = document.getElementById('in');
             const text = input.value.trim();
-            if (!text) return;
+            if(!text) return;
 
-            // إذا لم يوجد مفتاح، اطلبه واحفظه
-            if (!apiKey) {
-                apiKey = prompt("من فضلك أدخل API Key الخاص بك لتفعيل المحرك الذكي (سيتم حفظه في جهازك فقط):");
-                if (apiKey) localStorage.setItem('gemini_key', apiKey);
+            let key = localStorage.getItem('active_key');
+            if(!key) {
+                key = prompt("من فضلك الصق الـ API Key الخاص بك هنا:");
+                if(key) localStorage.setItem('active_key', key);
                 else return;
             }
 
-            addMsg(text, 'user');
+            add(text, 'user');
             input.value = "";
 
             try {
-                // استدعاء محرك Gemini الحقيقي
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
                 });
-
-                const data = await response.json();
-                
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    const aiResponse = data.candidates[0].content.parts[0].text;
-                    addMsg(aiResponse, 'ai');
-                } else if (data.error) {
-                    addMsg("خطأ في المفتاح: " + data.error.message, 'ai');
-                    localStorage.removeItem('gemini_key'); // مسح المفتاح الخاطئ
-                    apiKey = "";
+                const data = await res.json();
+                if(data.error) {
+                    add("خطأ في المفتاح. سأحذفه، جرب الإرسال مرة أخرى والصق المفتاح الصحيح.", 'ai');
+                    localStorage.removeItem('active_key');
+                } else {
+                    add(data.candidates[0].content.parts[0].text, 'ai');
                 }
-            } catch (error) {
-                addMsg("فشل الاتصال.. تأكد من الإنترنت وصلاحية المفتاح.", 'ai');
+            } catch(e) {
+                add("مشكلة في الاتصال. جرب مجدداً.", 'ai');
+                localStorage.removeItem('active_key');
             }
         }
-
-        function addMsg(content, type) {
-            const win = document.getElementById('chat-window');
-            const div = document.createElement('div');
-            div.className = `msg ${type}`;
-            div.innerText = content;
-            win.appendChild(div);
-            win.scrollTop = win.scrollHeight;
-            gsap.from(div, { opacity: 0, x: type === 'user' ? -30 : 30, duration: 0.4 });
+        function add(t, type) {
+            const c = document.getElementById('chat');
+            const d = document.createElement('div');
+            d.className = `msg ${type}`;
+            d.innerText = t;
+            c.appendChild(d);
+            c.scrollTop = c.scrollHeight;
         }
     </script>
 </body>
