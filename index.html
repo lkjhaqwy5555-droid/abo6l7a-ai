@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abo6l7a AI | Central Intelligence</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root { --neon: #00ffcc; --bg: #050505; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { padding: 20px; border-bottom: 2px solid var(--neon); background: #000; text-align: center; box-shadow: 0 0 20px var(--neon); z-index: 10; }
+        #terminal { flex: 1; padding: 20px; overflow-y: auto; background: rgba(0,0,0,0.9); }
+        .log { margin-bottom: 15px; border-right: 3px solid var(--neon); padding-right: 15px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from {opacity:0; transform: translateX(20px);} to {opacity:1; transform: translateX(0);} }
+        .input-area { padding: 20px; background: #111; display: flex; gap: 10px; border-top: 1px solid #333; }
+        input { flex: 1; background: transparent; border: 1px solid var(--neon); color: #fff; padding: 12px; outline: none; border-radius: 5px; }
+        button { background: var(--neon); color: #000; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        .system-msg { color: #555; font-size: 0.8rem; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <header>PLATFORM: ABO6L7A AI v2.0 (MODERN CORE)</header>
+    <div id="terminal">
+        <div class="log">تم تفعيل بروتوكول الذكاء المستقل. النظام جاهز لاستلام الأوامر التنفيذية.</div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="أدخل أمرك للذكاء الاصطناعي..." autofocus>
+        <button onclick="process()">تنفيذ</button>
+    </div>
+    <script>
+        function process() {
+            const input = document.getElementById('userInput');
+            const term = document.getElementById('terminal');
+            if(!input.value) return;
+            term.innerHTML += `<div style="color:#888; margin:10px 0;">> ${input.value}</div>`;
+            const val = input.value;
+            setTimeout(() => {
+                let response = "تحليل البيانات... تم استدعاء مكتبات النظام. الأمر قيد التنفيذ.";
+                if(val.includes("اصنع") || val.includes("برمج")) response = "تفعيل محرك الخلق... جاري بناء الهيكل البرمجي المطلوب.";
+                term.innerHTML += `<div class="system-msg">PROCESSING_LOG: [OK]</div><div class="log">${response}</div>`;
+                term.scrollTop = term.scrollHeight;
+            }, 600);
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
